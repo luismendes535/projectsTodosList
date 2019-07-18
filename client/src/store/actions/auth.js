@@ -8,11 +8,12 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, user) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
-    userId: userId
+    userId: user._id,
+    userName: user.name
   };
 };
 
@@ -36,7 +37,7 @@ export const checkAuthTimeout = expirationTime => {
   return dispatch => {
     setTimeout(() => {
       dispatch(logout());
-    }, expirationTime * 1000);
+    }, expirationTime );
   };
 };
 
@@ -56,12 +57,12 @@ export const auth = (name, email, password, isSignup) => {
       .post(url, authData)
       .then(response => {
         const expirationDate = new Date(
-          new Date().getTime() + response.data.token.expiresIn * 1000
+          new Date().getTime() + response.data.token.expiresIn
         );
         localStorage.setItem("token", response.data.token.token);
-        localStorage.setItem("expirationDate", expirationDate * 1000);
+        localStorage.setItem("expirationDate", expirationDate.getTime());
         localStorage.setItem("userId", response.data.user._id);
-        dispatch(authSuccess(response.data.token, response.data.user._id));
+        dispatch(authSuccess(response.data.token, response.data.user));
         dispatch(checkAuthTimeout(response.data.token.expiresIn));
       })
       .catch(err => {
@@ -84,13 +85,13 @@ export const authCheckState = () => {
     if (!token) {
       dispatch(logout());
     } else {
-      const expirationDate = new Date(localStorage.getItem("expirationDate"));
-      if (expirationDate >= new Date()) {
+      const expirationDate = localStorage.getItem("expirationDate");
+      if (expirationDate >= new Date().getTime()) {
         const userId = localStorage.getItem("userId");
         dispatch(authSuccess(token, userId));
         dispatch(
           checkAuthTimeout(
-            (expirationDate.getTime() - new Date().getTime()) / 1000
+            (expirationDate - new Date().getTime())
           )
         );
       } else {

@@ -8,14 +8,15 @@ const toolbar = props => (
     <nav className={classes.DesktopOnly}>
       <span>EDirectinsure TODO List</span>
       {props.isAuth ? (
-        <ul>
+        <ul className={classes.Logout}>
+          {props.userName}
           <li className={classes.NavigationItem}>
             <NavLink
               to="/logout"
               activeClassName={classes.active}
               // exact={this.props}
             >
-              Logout
+              <i class="large material-icons">exit_to_app</i>
             </NavLink>
           </li>
         </ul>

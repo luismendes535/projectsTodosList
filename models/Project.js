@@ -8,16 +8,21 @@ const Project = mongoose.model(
     title: {
       type: String,
       required: true,
-      minlength: 5,
+      minlength: 4,
       maxlength: 255,
       unique: true
     },
     todos: [
       {
-        type: String,
-        // required: true,
-        minlength: 5,
-        maxlength: 1024
+        todo: {
+          type: String,
+          minlength: 4,
+          maxlength: 1024
+        },
+        done: {
+          type: Boolean,
+          default: false
+        }
       }
     ]
   })
@@ -28,7 +33,7 @@ function validateProject(project) {
     title: Joi.string()
       .min(4)
       .max(50)
-      .required(),
+      .required()
   };
   return Joi.validate(project, schema);
 }

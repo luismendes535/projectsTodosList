@@ -59,7 +59,10 @@ class Project extends Component {
     return (
       <div className={classes.Project}>
         <h2>Create a new project</h2>
-        <form onSubmit={event => this.submitHandler(event)}>
+        <form
+          className={classes.Form}
+          onSubmit={event => this.submitHandler(event)}
+        >
           <Input
             shouldValidate={controls.project.validation}
             invalid={!controls.project.valid}

@@ -11,6 +11,27 @@
   padding: 0 20px;
   box-sizing: border-box;
   z-index: 90;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#feffff+0,ddf1f9+35,a0d8ef+100;Blue+3D+%2318 */
+  background: #feffff; /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    #feffff 0%,
+    #dce0e2 35%,
+    #a0d8ef 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    #feffff 0%,
+    #ddf1f9 35%,
+    #9dadb3 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #feffff 0%,
+    #ddf1f9 35%,
+    #8e9da1 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#a0d8ef',GradientType=0 ); /* IE6-9 */
 }
 
 .Toolbar nav {
@@ -21,9 +42,13 @@
   align-items: center;
 }
 .Toolbar a {
-  color: aliceblue;
+  color: rgb(13, 13, 14);
 }
 
 li {
   list-style-type: none;
+}
+.Logout {
+  display: flex;
+  align-items: center;
 }

@@ -30,7 +30,7 @@ module.exports = app => {
     const token = jwt.sign({ _id: user._id }, keys.jwtKey, {
       expiresIn: "1h"
     });
-    res.send({ user, token: { token, expiresIn: 60 * 60 } });
+    res.send({ user, token: { token, expiresIn: 60 * 60 * 1000 } });
   });
 
   function validate(req) {

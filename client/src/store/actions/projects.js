@@ -93,7 +93,6 @@ export const deleteProjectStart = () => {
 };
 
 export const deleteProject = (title, userId) => {
-  console.log("DEBUG ", title);
   return dispatch => {
     dispatch(deleteProjectStart());
     axios
@@ -107,6 +106,84 @@ export const deleteProject = (title, userId) => {
       .catch(err => {
         // this.setState({ loading: false, purchasing: false });
         dispatch(deleteProjectFail(err));
+      });
+  };
+};
+
+export const createTodoSuccess = (id, orderData) => {
+  return {
+    type: actionType.CREATE_TODO_SUCCESS,
+    orderId: id,
+    orderData: orderData
+  };
+};
+
+export const createTodoFail = error => {
+  return {
+    type: actionType.CREATE_TODO_FAIL,
+    error
+  };
+};
+
+export const createTodoStart = () => {
+  return {
+    type: actionType.CREATE_TODO_START
+  };
+};
+
+export const createTodo = (title, todo, userId) => {
+  return dispatch => {
+    dispatch(createTodoStart());
+    axios
+      .post(`http://localhost:5000/project/todo`, { title, todo })
+      .then(response => {
+        // this.setState({ loading: false, purchasing: false });
+        // this.props.history.push("/");
+        dispatch(createTodoSuccess(response.data.name, title));
+        dispatch(fetchProjects(userId));
+      })
+      .catch(err => {
+        // this.setState({ loading: false, purchasing: false });
+        dispatch(createTodoFail(err));
+      });
+  };
+};
+
+export const deleteTodoSuccess = (id, orderData) => {
+  return {
+    type: actionType.DELETE_TODO_SUCCESS,
+    orderId: id,
+    orderData: orderData
+  };
+};
+
+export const deleteTodoFail = error => {
+  return {
+    type: actionType.DELETE_TODO_FAIL,
+    error
+  };
+};
+
+export const deleteTodoStart = () => {
+  return {
+    type: actionType.DELETE_TODO_START
+  };
+};
+
+export const deleteTodo = (title, todoId, userId) => {
+  return dispatch => {
+    dispatch(deleteProjectStart());
+    axios
+      .delete(`http://localhost:5000/project/todo`, { data: { title, todoId } })
+      .then(response => {
+        // this.setState({ loading: false, purchasing: false });
+        // this.props.history.push("/");
+        dispatch(deleteTodoSuccess(response.data.name, title));
+        dispatch(fetchProjects(userId));
+      })
+      .catch(err => {
+        // this.setState({ loading: false, purchasing: false });
+        dispatch(deleteTodoFail(err));
       });
   };
 };

@@ -16,8 +16,7 @@ module.exports = app => {
       // Insert the new project if they do not exist yet
       project = new Project({
         author: req.params.id,
-        title: req.body.title,
-        todos: ["hard coded todo1", "hard coded todo2"]
+        title: req.body.title
       });
       await project.save();
       res.send(project);
@@ -33,5 +32,19 @@ module.exports = app => {
     let projects = await Project.deleteOne({ title: req.body.title });
     res.send(projects);
   });
-};
 
+  app.post("/project/todo", async (req, res) => {
+    let projects = await Project.findOneAndUpdate(
+      { title: req.body.title },
+      { $push: { todos: { todo: req.body.todo } } }
+    );
+    res.send(projects);
+  });
+  app.delete("/project/todo", async (req, res) => {
+    let projects = await Project.findOneAndUpdate(
+      { title: req.body.title, "todos.todo": req.body.todoId.todo },
+      { $set: { "todos.$.done": true } }
+    );
+    res.send(projects);
+  });
+};

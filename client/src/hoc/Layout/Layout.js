@@ -9,6 +9,7 @@ class Layout extends Component {
       <>
         <Toolbar
           isAuth={this.props.isAuthenticated}
+          userName={this.props.userName}
           drawerToggleClicked={this.sideDrawerToggleHandler}
         />
         <main className={classes.Content}>{this.props.children}</main>
@@ -19,7 +20,8 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    userName: state.auth.userName
   };
 };
 
