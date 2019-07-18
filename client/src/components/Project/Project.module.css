@@ -1,0 +1,39 @@
+.Project {
+  width: 20vw;
+  border: 1px solid black;
+  margin: 1rem;
+  padding: 1rem;
+  display: inline;
+  position: relative;
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
+.Header {
+  position: absolute;
+  height: 50px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  margin-top: 0px;
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0 1rem 0 1rem;
+  border-bottom: 1px solid #eee;
+}
+.Todos {
+  padding: 1rem;
+}
+.Done {
+  padding: 1rem;
+}
+.Footer {
+  position: absolute;
+  height: 50px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+  display: flex;
+}

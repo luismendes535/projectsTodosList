@@ -1,0 +1,11 @@
+.Project {
+  width: 20vw;
+  height: 20vh;
+  border: 1px solid black;
+  margin: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: lightgray
+}

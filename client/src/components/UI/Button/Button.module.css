@@ -1,0 +1,37 @@
+.Button {
+    background-color: transparent;
+    border: none;
+    color: green;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bold;
+  }
+  
+  .Button:first-of-type {
+    margin-left: 0;
+    padding-left: 0;
+  }
+  
+  .Button:disabled{
+    color: grey;
+    cursor: not-allowed;
+  
+  }
+  
+  .Success {
+    color: #5c9210;
+  }
+  
+  .Danger {
+    color: #944317;
+  }
+
+  .CreateProject{
+    background-color: rgb(124, 156, 244);
+    width: 100%;
+    max-height: 3rem;
+    color: white;
+  }
