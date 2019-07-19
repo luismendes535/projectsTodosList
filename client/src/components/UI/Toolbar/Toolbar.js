@@ -16,7 +16,7 @@ const toolbar = props => (
               activeClassName={classes.active}
               // exact={this.props}
             >
-              <i class="large material-icons">exit_to_app</i>
+              <i className="large material-icons">exit_to_app</i>
             </NavLink>
           </li>
         </ul>

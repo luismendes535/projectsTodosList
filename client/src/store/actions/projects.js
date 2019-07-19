@@ -66,10 +66,10 @@ export const createProject = (title, userId) => {
   };
 };
 
-export const deleteProjectSuccess = title => {
+export const deleteProjectSuccess = projectId => {
   return {
     type: actionType.DELETE_PROJECT_SUCCESS,
-    title
+    projectId
   };
 };
 
@@ -86,13 +86,14 @@ export const deleteProjectStart = () => {
   };
 };
 
-export const deleteProject = title => {
+export const deleteProject = projectId => {
   return dispatch => {
     dispatch(deleteProjectStart());
     axios
-      .delete(`http://localhost:5000/project`, { data: { title } })
+      .delete(`http://localhost:5000/project`, { data: { projectId } })
       .then(() => {
-        dispatch(deleteProjectSuccess(title));
+        dispatch(fetchProjects(projectId));
+        // dispatch(deleteProjectSuccess(projectId));
       })
       .catch(err => {
         dispatch(deleteProjectFail(err));
@@ -127,7 +128,7 @@ export const createTodo = (title, todo, userId) => {
     axios
       .post(`http://localhost:5000/project/todo`, { title, todo })
       .then(response => {
-        dispatch(createTodoSuccess(title, todo));
+        // dispatch(createTodoSuccess(title, todo)); //MUST BE FIXED
         dispatch(fetchProjects(userId));
       })
       .catch(err => {

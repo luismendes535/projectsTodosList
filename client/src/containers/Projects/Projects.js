@@ -4,7 +4,7 @@ import Project from "../../components/Project/Project";
 import ProjectForm from "../../components/Forms/Project/Project";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
-import classes from './Projects.module.css'
+import classes from "./Projects.module.css";
 class Projects extends Component {
   static propTypes = {
     // prop: PropTypes
@@ -16,7 +16,14 @@ class Projects extends Component {
     return (
       <div className={classes.Projects}>
         {this.props.projects.map(project => {
-          return <Project title={project.title} todos={project.todos} />;
+          return (
+            <Project
+              title={project.title}
+              todos={project.todos}
+              id={project._id}
+              key={project._id}
+            />
+          );
         })}
         <ProjectForm />
       </div>

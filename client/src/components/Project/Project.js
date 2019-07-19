@@ -50,6 +50,7 @@ class Project extends Component {
     );
   };
   render() {
+    console.log('KEEEEEEEEEEEY',this.props.id)
     const { controls } = this.state;
 
     return (
@@ -58,9 +59,7 @@ class Project extends Component {
           {this.props.title}
           <div>
             <i
-              onClick={() =>
-                this.props.onDeleteSuccess(this.props.title, this.props.userId)
-              }
+              onClick={() => this.props.onDeleteSuccess(this.props.id)}
               className="tiny material-icons"
             >
               delete
@@ -71,12 +70,12 @@ class Project extends Component {
         <div className={classes.Todos}>
           To Do
           <ul>
-            {this.props.todos.map((todo, id) => {
+            {this.props.todos.map(todo => {
               if (!todo.finished) {
                 return (
-                  <li className={classes.Todo}>
-                    <input type="checkbox" id={id} />
-                    <label for={id}>{todo.todo}</label>
+                  <li key={todo._id} className={classes.Todo}>
+                    <input type="checkbox" id={todo._id} />
+                    <label htmlFor={todo._id}>{todo.todo}</label>
                     <i
                       onClick={() =>
                         this.props.onDeleteTodo(
@@ -103,12 +102,12 @@ class Project extends Component {
             {this.props.todos.map(todo => {
               if (todo.finished) {
                 return (
-                  <li className={classes.Todo}>
+                  <li key={todo._id} className={classes.Todo}>
                     <div className={classes.tooltip}>
                       <span className={classes.tooltiptext}>
                         {moment(todo.finished).format("DD-MM-YYYY HH:mm:ss")}
                       </span>
-                      <input type="checkbox" checked />
+                      <input type="checkbox" readOnly checked />
                       <label>{todo.todo}</label>
                     </div>
                   </li>
@@ -150,8 +149,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.createTodo(title, todo, userId)),
     onDeleteTodo: (title, todo, userId) =>
       dispatch(actions.deleteTodo(title, todo, userId)),
-    onDeleteSuccess: (title, userId) =>
-      dispatch(actions.deleteProject(title, userId))
+    onDeleteSuccess: title => dispatch(actions.deleteProject(title))
   };
 };
 export default connect(

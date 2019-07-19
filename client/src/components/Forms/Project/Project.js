@@ -9,10 +9,6 @@ import classes from "./Project.module.css";
 import { updateObject, checkValidity } from "../../../utils/utility";
 
 class Project extends Component {
-  //   static propTypes = {
-  //     prop: PropTypes
-  //   };
-
   state = {
     controls: {
       project: {

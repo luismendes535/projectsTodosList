@@ -26,12 +26,12 @@ module.exports = app => {
     res.send(projects);
   });
 
-  app.delete("/project", async (req, res) => {
-    const projects = await Project.deleteOne({ title: req.body.title });
+  app.delete("/project", verifyToken, async (req, res) => {
+    const projects = await Project.deleteOne({ _id: req.body.projectId });
     res.send(projects);
   });
 
-  app.post("/project/todo", async (req, res) => {
+  app.post("/project/todo", verifyToken, async (req, res) => {
     const projects = await Project.findOneAndUpdate(
       { title: req.body.title },
       { $push: { todos: { todo: req.body.todo } } },
@@ -40,7 +40,7 @@ module.exports = app => {
     res.send(projects);
   });
 
-  app.put("/project/todo", async (req, res) => {
+  app.put("/project/todo", verifyToken, async (req, res) => {
     const projects = await Project.findOneAndUpdate(
       { title: req.body.title, "todos.todo": req.body.todoId.todo },
       { $set: { "todos.$.finished": Date() } }
