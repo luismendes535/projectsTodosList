@@ -41,6 +41,21 @@ const deleteProjectSuccess = (state, action) => {
 };
 const deleteProjectFail = state => updateObject(state, { loading: false });
 
+const createTodoStart = state => {
+  return updateObject(state, { loading: true });
+};
+const createTodoSuccess = (state, action) => { //MUST BE FIXED
+  let updatedProjects = state.projects.find(
+    project => project.title === action.title
+  );
+  updatedProjects.todos.concat({ todo: action.todo });
+  return updateObject(state, {
+    loading: false,
+    projects: [].push(updatedProjects)
+  });
+};
+const createTodoFail = state => updateObject(state, { loading: false });
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_PROJECTS_START:
@@ -63,6 +78,14 @@ const reducer = (state = initialState, action) => {
       return deleteProjectSuccess(state, action);
     case actionTypes.DELETE_PROJECT_FAIL:
       return deleteProjectFail(state);
+
+    case actionTypes.CREATE_TODO_START:
+      return createTodoStart(state);
+    case actionTypes.CREATE_TODO_SUCCESS:
+      return createTodoSuccess(state, action);
+    case actionTypes.CREATE_TODO_FAIL:
+      return createTodoFail(state);
+
     default:
       return state;
   }

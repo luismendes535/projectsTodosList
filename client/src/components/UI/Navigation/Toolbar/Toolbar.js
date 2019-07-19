@@ -20,17 +20,7 @@ const toolbar = props => (
             </NavLink>
           </li>
         </ul>
-      ) : (
-        <li className={classes.NavigationItem}>
-          <NavLink
-            to="/auth"
-            activeClassName={classes.active}
-            // exact={this.props}
-          >
-            Login
-          </NavLink>
-        </li>
-      )}
+      ) : null}
     </nav>
   </header>
 );

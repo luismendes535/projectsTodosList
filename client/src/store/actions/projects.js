@@ -93,7 +93,6 @@ export const deleteProject = title => {
       .delete(`http://localhost:5000/project`, { data: { title } })
       .then(() => {
         dispatch(deleteProjectSuccess(title));
-        // dispatch(fetchProjects(userId));
       })
       .catch(err => {
         dispatch(deleteProjectFail(err));
@@ -101,11 +100,11 @@ export const deleteProject = title => {
   };
 };
 
-export const createTodoSuccess = (id, orderData) => {
+export const createTodoSuccess = (title, todo) => {
   return {
     type: actionType.CREATE_TODO_SUCCESS,
-    orderId: id,
-    orderData: orderData
+    title,
+    todo
   };
 };
 
@@ -128,23 +127,20 @@ export const createTodo = (title, todo, userId) => {
     axios
       .post(`http://localhost:5000/project/todo`, { title, todo })
       .then(response => {
-        // this.setState({ loading: false, purchasing: false });
-        // this.props.history.push("/");
-        dispatch(createTodoSuccess(response.data.name, title));
+        dispatch(createTodoSuccess(title, todo));
         dispatch(fetchProjects(userId));
       })
       .catch(err => {
-        // this.setState({ loading: false, purchasing: false });
         dispatch(createTodoFail(err));
       });
   };
 };
 
-export const deleteTodoSuccess = (id, orderData) => {
+export const deleteTodoSuccess = (title, todo) => {
   return {
     type: actionType.DELETE_TODO_SUCCESS,
-    orderId: id,
-    orderData: orderData
+    title,
+    todo
   };
 };
 

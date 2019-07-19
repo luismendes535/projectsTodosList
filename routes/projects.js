@@ -34,11 +34,12 @@ module.exports = app => {
   app.post("/project/todo", async (req, res) => {
     const projects = await Project.findOneAndUpdate(
       { title: req.body.title },
-      { $push: { todos: { todo: req.body.todo } } }
+      { $push: { todos: { todo: req.body.todo } } },
+      { new: true }
     );
     res.send(projects);
   });
-  
+
   app.put("/project/todo", async (req, res) => {
     const projects = await Project.findOneAndUpdate(
       { title: req.body.title, "todos.todo": req.body.todoId.todo },

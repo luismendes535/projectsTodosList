@@ -17,16 +17,14 @@ class App extends Component {
       <Switch>
         <Route path="/auth" component={Auth} />
         <Route path="/signup" component={Auth} />
-        {/* <Route path="/" exact component={BurgerBuilder} /> */}
         <Redirect to="/auth" />
       </Switch>
     );
-    if (this.props.isAuthenticated) { //developing
-    // if (true) { //developing
+    if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          {/* <Route path="/auth" component={Auth} /> */}
           <Route path="/logout" component={Logout} />
+          <Route path="/" exact component={Projects} />
           <Route path="/" exact component={Projects} />
           <Redirect to="/" />
         </Switch>
@@ -35,7 +33,7 @@ class App extends Component {
 
     return (
       <Suspense fallback={<div>Loading...</div>}>
-        <Layout>{routes}</Layout>{" "}
+        <Layout >{routes}</Layout>{" "}
       </Suspense>
     );
   }

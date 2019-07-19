@@ -5,6 +5,7 @@ import Input from "../UI/Input/Input";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { updateObject, checkValidity } from "../../utils/utility";
+import moment from "moment";
 
 class Project extends Component {
   state = {
@@ -103,8 +104,13 @@ class Project extends Component {
               if (todo.finished) {
                 return (
                   <li className={classes.Todo}>
-                    <input type="checkbox" checked />
-                    <label>{todo.todo}</label>
+                    <div className={classes.tooltip}>
+                      <span className={classes.tooltiptext}>
+                        {moment(todo.finished).format("DD-MM-YYYY HH:mm:ss")}
+                      </span>
+                      <input type="checkbox" checked />
+                      <label>{todo.todo}</label>
+                    </div>
                   </li>
                 );
               }

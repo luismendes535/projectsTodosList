@@ -1,4 +1,5 @@
-export { auth, logout, setAuthRedirectPath, authCheckState } from "./auth";
+export { auth, logout, authCheckState } from "./auth";
+
 export {
   fetchProjects,
   createProject,
