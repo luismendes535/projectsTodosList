@@ -7,6 +7,7 @@ import thunk from "redux-thunk";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { setAuthorizationToken } from "./utils/utility";
 
 import authReducer from "./store/reducers/auth";
 import projectsReducer from "./store/reducers/projects";
@@ -29,6 +30,8 @@ const app = (
     </BrowserRouter>
   </Provider>
 );
+
+setAuthorizationToken(localStorage.getItem("token"));
 
 ReactDOM.render(app, document.getElementById("root"));
 

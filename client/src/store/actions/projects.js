@@ -5,7 +5,7 @@ export const fetchProjects = userId => {
   return dispatch => {
     dispatch(fetchProjectsStart());
     axios
-      .get(`http://localhost:5000/projects/${userId}`)
+      .get(`http://localhost:5000/projects`)
       .then(({ data }) => {
         dispatch(fetchProjectsSuccess(data));
       })
@@ -32,11 +32,10 @@ export const fetchProjectsStart = () => {
   };
 };
 
-export const createProjectSuccess = (id, orderData) => {
+export const createProjectSuccess = project => {
   return {
     type: actionType.CREATE_PROJECTS_SUCCESS,
-    orderId: id,
-    orderData: orderData
+    project
   };
 };
 
@@ -57,25 +56,20 @@ export const createProject = (title, userId) => {
   return dispatch => {
     dispatch(createProjectStart());
     axios
-      .post(`http://localhost:5000/projects/${userId}`, { title })
+      .post(`http://localhost:5000/projects`, { title })
       .then(response => {
-        // this.setState({ loading: false, purchasing: false });
-        // this.props.history.push("/");
-        dispatch(createProjectSuccess(response.data.name, title));
-        dispatch(fetchProjects(userId));
+        dispatch(createProjectSuccess(response.data));
       })
       .catch(err => {
-        // this.setState({ loading: false, purchasing: false });
         dispatch(createProjectFail(err));
       });
   };
 };
 
-export const deleteProjectSuccess = (id, orderData) => {
+export const deleteProjectSuccess = title => {
   return {
     type: actionType.DELETE_PROJECT_SUCCESS,
-    orderId: id,
-    orderData: orderData
+    title
   };
 };
 
@@ -92,19 +86,16 @@ export const deleteProjectStart = () => {
   };
 };
 
-export const deleteProject = (title, userId) => {
+export const deleteProject = title => {
   return dispatch => {
     dispatch(deleteProjectStart());
     axios
       .delete(`http://localhost:5000/project`, { data: { title } })
-      .then(response => {
-        // this.setState({ loading: false, purchasing: false });
-        // this.props.history.push("/");
-        dispatch(deleteProjectSuccess(response.data.name, title));
-        dispatch(fetchProjects(userId));
+      .then(() => {
+        dispatch(deleteProjectSuccess(title));
+        // dispatch(fetchProjects(userId));
       })
       .catch(err => {
-        // this.setState({ loading: false, purchasing: false });
         dispatch(deleteProjectFail(err));
       });
   };
@@ -172,9 +163,9 @@ export const deleteTodoStart = () => {
 
 export const deleteTodo = (title, todoId, userId) => {
   return dispatch => {
-    dispatch(deleteProjectStart());
+    dispatch(deleteTodoStart());
     axios
-      .delete(`http://localhost:5000/project/todo`, { data: { title, todoId } })
+      .put(`http://localhost:5000/project/todo`, { title, todoId })
       .then(response => {
         // this.setState({ loading: false, purchasing: false });
         // this.props.history.push("/");

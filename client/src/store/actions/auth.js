@@ -1,6 +1,6 @@
 import axios from "axios";
-
 import * as actionTypes from "./actionTypes";
+import { setAuthorizationToken } from "../../utils/utility";
 
 export const authStart = () => {
   return {
@@ -37,7 +37,7 @@ export const checkAuthTimeout = expirationTime => {
   return dispatch => {
     setTimeout(() => {
       dispatch(logout());
-    }, expirationTime );
+    }, expirationTime);
   };
 };
 
@@ -62,6 +62,7 @@ export const auth = (name, email, password, isSignup) => {
         localStorage.setItem("token", response.data.token.token);
         localStorage.setItem("expirationDate", expirationDate.getTime());
         localStorage.setItem("userId", response.data.user._id);
+        setAuthorizationToken(response.data.token.token);
         dispatch(authSuccess(response.data.token, response.data.user));
         dispatch(checkAuthTimeout(response.data.token.expiresIn));
       })
@@ -89,11 +90,7 @@ export const authCheckState = () => {
       if (expirationDate >= new Date().getTime()) {
         const userId = localStorage.getItem("userId");
         dispatch(authSuccess(token, userId));
-        dispatch(
-          checkAuthTimeout(
-            (expirationDate - new Date().getTime())
-          )
-        );
+        dispatch(checkAuthTimeout(expirationDate - new Date().getTime()));
       } else {
         dispatch(logout());
       }

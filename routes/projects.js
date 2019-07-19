@@ -1,21 +1,19 @@
 const { Project, validate } = require("../models/Project");
+const { verifyToken } = require("./verifyToken");
 
 module.exports = app => {
-  app.post("/projects/:id", async (req, res) => {
-    // First Validate The Request
+  app.post("/projects", verifyToken, async (req, res) => {
     const { error } = validate(req.body);
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
 
-    // Check if this project already exisits
     let project = await Project.findOne({ title: req.body.title });
     if (project) {
       return res.status(400).send("That project already exisits!");
     } else {
-      // Insert the new project if they do not exist yet
       project = new Project({
-        author: req.params.id,
+        author: req.user._id,
         title: req.body.title
       });
       await project.save();
@@ -23,27 +21,28 @@ module.exports = app => {
     }
   });
 
-  app.get("/projects/:id", async (req, res) => {
-    let projects = await Project.find({ author: req.params.id });
+  app.get("/projects", verifyToken, async (req, res) => {
+    const projects = await Project.find({ author: req.user._id });
     res.send(projects);
   });
 
   app.delete("/project", async (req, res) => {
-    let projects = await Project.deleteOne({ title: req.body.title });
+    const projects = await Project.deleteOne({ title: req.body.title });
     res.send(projects);
   });
 
   app.post("/project/todo", async (req, res) => {
-    let projects = await Project.findOneAndUpdate(
+    const projects = await Project.findOneAndUpdate(
       { title: req.body.title },
       { $push: { todos: { todo: req.body.todo } } }
     );
     res.send(projects);
   });
-  app.delete("/project/todo", async (req, res) => {
-    let projects = await Project.findOneAndUpdate(
+  
+  app.put("/project/todo", async (req, res) => {
+    const projects = await Project.findOneAndUpdate(
       { title: req.body.title, "todos.todo": req.body.todoId.todo },
-      { $set: { "todos.$.done": true } }
+      { $set: { "todos.$.finished": Date() } }
     );
     res.send(projects);
   });

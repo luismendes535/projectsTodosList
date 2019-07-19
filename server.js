@@ -1,28 +1,23 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-require('dotenv').config()
 const keys = require("./config/keys");
-const cors = require('cors');
-// require("./models/User");
-// require("./models/Survey");
-// require("./services/passport");
+const cors = require("cors");
+const helmet = require("helmet");
+
 mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI);
 
 const app = express();
-
 app.use(cors());
-app.options('*', cors()) 
+app.use(helmet());
+app.options("*", cors());
 app.use(bodyParser.json());
 
-
-require('./routes/auth')(app);
+require("./routes/auth")(app);
 require("./routes/users")(app);
 require("./routes/projects")(app);
-
-// require("./routes/billingRoutes")(app);
-// require("./routes/surveyRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   //Express will serve up production assets

@@ -4,7 +4,7 @@ import Button from "../UI/Button/Button";
 import Input from "../UI/Input/Input";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
-import { updateObject, checkValidity } from "../../shared/utility";
+import { updateObject, checkValidity } from "../../utils/utility";
 
 class Project extends Component {
   state = {
@@ -71,7 +71,7 @@ class Project extends Component {
           To Do
           <ul>
             {this.props.todos.map((todo, id) => {
-              if (!todo.done) {
+              if (!todo.finished) {
                 return (
                   <li className={classes.Todo}>
                     <input type="checkbox" id={id} />
@@ -100,7 +100,7 @@ class Project extends Component {
           Done
           <ul>
             {this.props.todos.map(todo => {
-              if (todo.done) {
+              if (todo.finished) {
                 return (
                   <li className={classes.Todo}>
                     <input type="checkbox" checked />

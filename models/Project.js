@@ -1,5 +1,5 @@
-const Joi = require("joi");
 const mongoose = require("mongoose");
+const Joi = require("joi");
 
 const Project = mongoose.model(
   "Project",
@@ -19,9 +19,12 @@ const Project = mongoose.model(
           minlength: 4,
           maxlength: 1024
         },
-        done: {
-          type: Boolean,
-          default: false
+        created: {
+          type: Date,
+          default: Date.now()
+        },
+        finished: {
+          type: Date
         }
       }
     ]

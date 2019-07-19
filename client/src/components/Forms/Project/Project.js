@@ -6,7 +6,7 @@ import Input from "../../UI/Input/Input";
 import * as actions from "../../../store/actions/index";
 import classes from "./Project.module.css";
 
-import { updateObject, checkValidity } from "../../../shared/utility";
+import { updateObject, checkValidity } from "../../../utils/utility";
 
 class Project extends Component {
   //   static propTypes = {
