@@ -1,30 +1,39 @@
 import React from "react";
 import classes from "./Input.module.css";
 
-const input = props => {
+const input = ({
+  invalid,
+  label,
+  shouldValidate,
+  touched,
+  changed,
+  elementConfig,
+  elementType,
+  value
+}) => {
   let inputElement = null;
   let inputClasses = [classes.InputElement];
-  if (props.invalid && props.shouldValidate && props.touched) {
+  if (invalid && shouldValidate && touched) {
     inputClasses.push(classes.Invalid);
   }
-  switch (props.elementType) {
+  switch (elementType) {
     case "input":
       inputElement = (
         <input
-          onChange={props.changed}
+          onChange={changed}
           className={inputClasses.join(" ")}
-          {...props.elementConfig}
-          value={props.value}
+          {...elementConfig}
+          value={value}
         />
       );
       break;
     case "textarea":
       inputElement = (
         <textarea
-          onChange={props.changed}
+          onChange={changed}
           className={inputClasses.join(" ")}
-          {...props.elementConfig}
-          value={props.value}
+          {...elementConfig}
+          value={value}
         />
       );
       break;
@@ -32,11 +41,11 @@ const input = props => {
       inputElement = (
         <select
           className={inputClasses.join(" ")}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          {...elementConfig}
+          value={value}
+          onChange={changed}
         >
-          {props.elementConfig.options.map(option => (
+          {elementConfig.options.map(option => (
             <option key={option.value} value={option.value}>
               {option.displayValue}
             </option>
@@ -47,17 +56,17 @@ const input = props => {
     default:
       inputElement = (
         <input
-          onChange={props.changed}
+          onChange={changed}
           className={inputClasses.join(" ")}
-          {...props.elementConfig}
-          value={props.value}
+          {...elementConfig}
+          value={value}
         />
       );
       break;
   }
   return (
     <div className={classes.Input}>
-      <label>{props.label}</label>
+      <label>{label}</label>
       {inputElement}
     </div>
   );

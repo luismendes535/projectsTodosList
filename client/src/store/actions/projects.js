@@ -52,7 +52,7 @@ export const createProjectStart = () => {
   };
 };
 
-export const createProject = (title, userId) => {
+export const createProject = title => {
   return dispatch => {
     dispatch(createProjectStart());
     axios
@@ -92,8 +92,8 @@ export const deleteProject = projectId => {
     axios
       .delete(`http://localhost:5000/project`, { data: { projectId } })
       .then(() => {
-        dispatch(fetchProjects(projectId));
-        // dispatch(deleteProjectSuccess(projectId));
+        // dispatch(fetchProjects(projectId));
+        dispatch(deleteProjectSuccess(projectId));
       })
       .catch(err => {
         dispatch(deleteProjectFail(err));

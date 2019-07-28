@@ -31,12 +31,12 @@ const deleteProjectStart = state => {
   return updateObject(state, { loading: true });
 };
 const deleteProjectSuccess = (state, action) => {
-  const updatedProjects = state.projects.find(
-    project => project.title !== action.title
-  );
+  const updatedProjects = state.projects.filter(
+    project => project._id !== action.projectId
+  ); 
   return updateObject(state, {
     loading: false,
-    projects: updatedProjects ? [].concat(updatedProjects) : []
+    projects: updatedProjects ? updatedProjects : []
   });
 };
 const deleteProjectFail = state => updateObject(state, { loading: false });

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render Toolbar component with a NavLink if user is authenticated 1`] = `ShallowWrapper {}`;
+
+exports[`expect to render Toolbar component without any NavLink if user is not authenticated 1`] = `ShallowWrapper {}`;

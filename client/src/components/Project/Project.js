@@ -50,7 +50,6 @@ class Project extends Component {
     );
   };
   render() {
-    console.log('KEEEEEEEEEEEY',this.props.id)
     const { controls } = this.state;
 
     return (

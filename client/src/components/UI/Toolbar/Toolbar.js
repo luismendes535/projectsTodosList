@@ -3,19 +3,15 @@ import React from "react";
 import classes from "./Toolbar.module.css";
 import { NavLink } from "react-router-dom";
 
-const toolbar = props => (
+const toolbar = ({ isAuth, userName }) => (
   <header className={classes.Toolbar}>
     <nav className={classes.DesktopOnly}>
       <span>EDirectinsure TODO List</span>
-      {props.isAuth ? (
+      {isAuth ? (
         <ul className={classes.Logout}>
-          {props.userName}
+          {userName}
           <li className={classes.NavigationItem}>
-            <NavLink
-              to="/logout"
-              activeClassName={classes.active}
-              // exact={this.props}
-            >
+            <NavLink to="/logout" activeClassName={classes.active}>
               <i className="large material-icons">exit_to_app</i>
             </NavLink>
           </li>
